@@ -1,0 +1,114 @@
+{% include 'stocks/header.html' %}
+</head>
+<body>
+
+    {%  include 'stocks/components/navbar.html' %}
+
+    <h4 class="center white">
+        <i class="fas fa-chart-line"></i>
+        Browse stocks
+    </h4>
+    <div class="container" id="stocks-list">
+            {% if data %}
+                {% for stock, current_value in data.items %}
+                    <div class="container stock-item" id="{{ stock.abbreviation }}">
+                        <div class="row">
+
+                            <div class="col-sm-2 logo-div">
+                                <img src="{{ stock.logo_url }}" class="logo-image">
+                            </div>
+
+                            <div class="col-sm-8 stock-info">
+                                <div class="row">
+                                    <div class="col-sm-8">
+
+                                        <h4 class="stock-name">{{ stock.name }}</h4>
+                                        <h6 class="stock-abbreviation">{{ stock.abbreviation }}</h6>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h4 class="stock-value">
+                                            <i class="fas fa-caret-up stockUp"></i>
+                                            {{ current_value }}$</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        {{ stock.sector }}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {{ stock.industry }}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {{ stock.country }}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-2 graph-icon">
+                                    <i class="far fa-chart-bar fa-2x dropdown" id="chart-{{ stock.abbreviation }}"></i>
+                                    <i class="far fa-bell fa-2x popup dumbbell" id="notification-{{ stock.abbreviation }}"></i>
+                            </div>
+
+                        </div>
+
+                    <div id="chart-info-{{ stock.abbreviation }}" class="chart-info">
+                        <div class="chart-description">
+                            {{ stock.description }}
+                        </div>
+                    </div>
+
+                    </div>
+
+                {% endfor %}
+            {% endif %}
+    </div>
+
+    <div class="modal">
+        <div class="modal-box container">
+
+            <span class="close-button">X</span>
+
+            <div class="row">
+                <h3 id="modal-header">Set up notification</h3>
+            </div>
+
+            <div class="row" style="margin-top: 2%; margin-bottom: 2%">
+                <h5 id="modal-value" class="center"></h5>
+            </div>
+
+            <div class="row">
+                <h6>Choose percentage value which will trigger the notification when stock reaches the threshold</h6>
+            </div>
+
+            <div class="row">
+                <div class="form-floating mb-3">
+                  <input type="number" class="form-control" id="percentage-value" placeholder="5">
+                  <label for="percentage-value">Percentage % (+/-)</label>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 2%; margin-bottom: 2%">
+                <h5 id="modal-notification-value" class="center">You will get an SMS notification when stock reaches chosen value</h5>
+            </div>
+
+            <div class="row modal-add">{% csrf_token %}
+                    <button class="btn btn-primary" id="add-notification">Notify me!</button>
+            </div>
+
+        </div>
+    </div>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.1.1.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.1.1.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.1.1.min.js"
+        crossorigin="anonymous"></script>
+
+    <script src="{% static "stocks/scripts/stocks.js" %}?version={% now "U" %}"></script>
+    
+</body>
+</html>

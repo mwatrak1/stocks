@@ -1,0 +1,46 @@
+<div id="navigation" class="navigation">
+    <div class="container">
+        <div class="row">
+
+            <div  class="col-sm-6" onclick="window.location.href='/'">
+                <h2 id="project_logo">Stock Notifications</h2>
+            </div>
+
+            <div class="col-sm-2" onclick="window.location.href='/stocks'">
+                <h4>Stock Prices</h4>
+            </div>
+
+            {% if user.username %}
+
+            <div class="col-sm-2" onclick="window.location.href='/user/dashboard'">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h4>Notifications</h4>
+                    </div>
+
+                    <div id="notifications-number-div" class="col-sm-4">
+                        <h5 id="numOfNotifications">{{ user.notifications|length }}</h5>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-sm-2" onclick="window.location.href='/user/logout'">
+                <h4>Logout</h4>
+            </div>
+
+            {% else %}
+
+            <div class="col-sm-4" onclick="window.location.href='/user/login'">
+                <h4>Login</h4>
+            </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% load static %}
+<script src="{% static "stocks/scripts/navbar.js" %}?version={% now "U" %}"></script>

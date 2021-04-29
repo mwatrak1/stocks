@@ -1,0 +1,96 @@
+{% include 'stocks/header.html' %}
+</head>
+<body>
+
+    {%  include 'stocks/components/navbar.html' %}
+
+    <div class="row">
+
+        <div class="col-2">
+
+        </div>
+
+        <div id="registration-form" class="col-6">
+
+            <form method="POST" class="row">{% csrf_token %}
+
+                <div class="col-12 form-element">
+                    <label for="username" class="form-label">Username: </label>
+                    <input class="form-control" id="username" minlength="8" maxlength="32" type="text" name="username">
+                </div>
+
+                <div class="col-12 form-element">
+                    <label for="email" class="form-label">Email: </label>
+                    <input class="form-control" id="email" type="email" name="email">
+                </div>
+
+                <label for="phone_number" class="form-label form-element">Mobile phone number: </label>
+
+                <div class="col-12">
+
+                    <div class="row">
+
+                        <div class="col-5">
+                            <select class="form-select" id="number_prefix" name="number_prefix">
+                                <option value="48" selected>Poland (+48)</option>
+                                <option value="44">UK (+44)</option>
+                                <option value="1">USA (+1)</option>
+                            </select>
+                        </div>
+
+
+                        <div class="col-7">
+                            <input class="form-control" id="phone_number" type="tel" name="phone_number"
+                                    pattern="[0-9]{9}" placeholder="Phone number" required>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-12 form-element">
+                    <label for="password" class="form-label">Password: </label>
+                    <input class="form-control" id="password" type="password" name="password">
+                </div>
+
+                <div class="col-12 form-element">
+                    <label for="password_repeat" class="form-label">Password again: </label>
+                    <input class="form-control" id="password_repeat" type="password" name="password_repeat">
+                </div>
+
+                <input type="hidden" name="form_type" value="register">
+
+                <div class="col-12 form-element">
+                    <button id="registerButton" type="submit" class="btn btn-primary form-control">Register</button>
+                </div>
+
+                {% if errors %}
+                <div class="alert alert-danger margin-5">
+                    <ul class="my-0">
+                        {% for field, errorList in errors.items %}
+
+                            {% for errors in errorList %}
+                                
+                                {% for error in errors %}
+                                    <li>{{field}}: {{error}}
+                                {% endfor %}
+
+                            {% endfor %}
+
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+            </form>
+        </div>
+
+
+    </div>
+
+
+{% load static %}
+<script src="{% static "stocks/scripts/login.js" %}?version={% now "U" %}"></script>
+
+</body>
+</html>

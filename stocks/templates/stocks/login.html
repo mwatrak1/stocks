@@ -1,0 +1,64 @@
+{% include 'stocks/header.html' %}
+</head>
+<body>
+
+    {%  include 'stocks/components/navbar.html' %}
+
+    <div id="authorization" class="row">
+
+        <div id="login-form" class="col-6">
+            <form method="POST" class="row">{% csrf_token %}
+
+                <div class="col-12 form-element">
+                    <label for="email" class="form-label">Email: </label>
+                    <input class="form-control" id="email" type="email" name="email" required>
+                </div>
+
+                <div class="col-12 form-element">
+
+                    <label for="password" class="form-label">Password: </label>
+                    <input class="form-control" id="password" type="password" name="password" required>
+
+                </div>
+
+                <input type="hidden" name="form_type" value="login">
+
+                <div class="col-12 form-element">
+                    <button id="loginButton" type="submit" class="btn btn-primary form-control">Login</button>
+                </div>
+
+                {% if errors %}
+                <div class="alert alert-danger margin-5">
+                    <ul class="my-0">
+                        {% for field, errorList in errors.items %}
+
+                            {% for errors in errorList %}
+                                
+                                {% for error in errors %}
+                                    <li>{{field}}: {{error}}
+                                {% endfor %}
+
+                            {% endfor %}
+
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+            </form>
+        </div>
+
+
+        <div id="switchForms" class="col-6">
+            <h4 id="greetingQuestion">Are you new here?</h4>
+            <button id="switchButton" onclick="window.location.href='/user/register'" class="btn btn-link">Register</button>
+        </div>
+
+    </div>
+
+
+{% load static %}
+<script src="{% static "stocks/scripts/login.js" %}?version={% now "U" %}"></script>
+
+</body>
+</html>

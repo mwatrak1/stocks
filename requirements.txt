@@ -1,0 +1,10 @@
+djongo
+sqlparse==0.2.4
+django
+python-dotenv
+yfinance
+multitasking
+PyJWT
+bokeh==2.1.1
+dnspython
+gunicorn

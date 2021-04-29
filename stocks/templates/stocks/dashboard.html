@@ -1,0 +1,69 @@
+{% include 'stocks/header.html' %}
+</head>
+<body>
+
+    {%  include 'stocks/components/navbar.html' %}
+
+    <h4 class="center white">
+        <i class="fas fa-chart-area"></i> Your notifications, {{user.username}}
+    </h4>
+
+    <div id="stocks-list"> {% csrf_token %}
+        {% for notification in notifications %}
+            <div id="{{ notification.setup_date}}" class="stock-item">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-sm-3">
+                            <h6 class="notification-description">Stock name</h6>
+                            <h5>{{ notification.stock_name }} {{ notification.stock_abbreviation }}</h5>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <h6 class="notification-description">Base notification value</h6>
+                            <h5>{{ notification.stock_base_value }}</h5>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <h6 class="notification-description">Current percentage / Goal percentage</h6>
+                            <h5>
+                                    {% if notification.stock_current_percentage > 0 %}
+                                        <i class="fas fa-caret-up stockUp"></i>
+                                    {%  elif notification.stock_current_percentage < 0 %}
+                                        <i class="fas fa-caret-down stockDown"></i>
+                                    {%  endif %}
+
+                                {{ notification.stock_current_percentage }} /
+
+                                    {% if notification.stock_goal_percentage > 0 %}
+                                        <i class="fas fa-caret-up stockUp"></i>
+                                    {%  elif notification.stock_goal_percentage < 0 %}
+                                        <i class="fas fa-caret-down stockDown"></i>
+                                    {%  endif %}
+
+                                {{ notification.stock_goal_percentage }} %</h5>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <h6 class="notification-description">Current value / Goal value</h6>
+                            <h5>{{ notification.stock_current_value }} / {{ notification.stock_goal_value }} $</h5>
+                        </div>
+
+                        <div class="col-sm-1 delete-notification">
+                            <i class="far fa-trash-alt"></i>
+                            Delete
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+
+    {% load static %}
+    <script src="{% static "stocks/scripts/notifications.js" %}?version={% now "U" %}"></script>
+
+</body>
+</html>
