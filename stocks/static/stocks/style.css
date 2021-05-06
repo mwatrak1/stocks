@@ -27,9 +27,9 @@ body {
 
 #landingPage {
     background-image: url("./images/pngegg.png");
-    padding-top: 10%;
-    padding-bottom: 12%;
-    background-size: contain;
+    padding-top: 12%;
+    padding-bottom: 18%;
+    background-size: cover;
 }
 
 #welcomeText {
