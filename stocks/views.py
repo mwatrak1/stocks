@@ -71,9 +71,8 @@ def get_stocks_data():
     stock_frame = yf.download(tickers=tickers[:5], period="1d", interval="1d", group_by="ticker")
 
     for stock in all_stocks[:5]:
-        average = (stock_frame.get(stock.abbreviation).get("High").get(-1) +
-                   stock_frame.get(stock.abbreviation).get("Low").get(-1)) / 2
-        stock_data[stock] = round(average, 2)
+        stock_value = stock_frame.get(stock.abbreviation).tail(1).get("Close").iloc[0]
+        stock_data[stock] = round(stock_value, 2)
 
     return stock_data
 

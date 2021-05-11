@@ -21,6 +21,8 @@ class User(models.Model):
             "email": self.email,
             "username": self.username
         }
+        notifications = Notification.objects.filter(user_id=self)
+        user_data['notifications_count'] = len(notifications)
         return user_data
 
     @classmethod

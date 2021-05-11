@@ -5,3 +5,4 @@ stocksVenv
 .vscode
 .DS_Store
 .env
+package

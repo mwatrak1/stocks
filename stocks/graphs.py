@@ -8,7 +8,7 @@ import yfinance as yf
 
 def render_graph(request, **params):
     selected_stock = params.get("abbreviation")
-    x, y = get_stocks_plot_x_data(selected_stock)
+    x, y = get_stocks_plot_data(selected_stock)
     tooltips = get_hover_tool_settings()
     graph = figure(width_policy="fit", max_width=960, height_policy='fit', aspect_ratio=2,
                    max_height=480, x_axis_type="datetime", align='center')
@@ -22,7 +22,7 @@ def render_graph(request, **params):
     return JsonResponse(response_body)
 
 
-def get_stocks_plot_x_data(abbreviation):
+def get_stocks_plot_data(abbreviation):
     stock_data_history = yf.download(abbreviation, period="10y", interval="1d")
     x_datetime = stock_data_history.High.keys().to_pydatetime()
     return x_datetime, stock_data_history.High.values
