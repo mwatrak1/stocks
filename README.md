@@ -18,6 +18,3 @@
 
 ### Sample:
 <img src="https://stock-notifications-app.s3.eu-central-1.amazonaws.com/stock.png" alt="here should be a photo but there is nothing for some reason" height=200px width=320px>
-
-     
-### Check out the app at: https://stocks-hdzou.ondigitalocean.app/
